@@ -8,6 +8,8 @@ This endpoint logs the trip and automatically calculates the distance between st
 
 `POST http://example.com/api/trips`
 
+[Query Parameters](https://www.notion.so/df486f89e08b4452b9ab1f3861f850d0)
+
 # Stats
 
 ## Get Weekly Stats
