@@ -1,4 +1,4 @@
-export interface Trip {
+export interface TripInterface {
   start_address: string;
   destination_address: string;
   price: number;

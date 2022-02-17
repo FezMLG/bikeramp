@@ -1,16 +1,27 @@
-import { Injectable } from '@nestjs/common';
-import { Trip } from 'src/dto/trips/trip.interface';
+import { Inject, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { InsertResult, Repository } from 'typeorm';
+import { Trip } from './trips.entity';
+import { TripInterface } from 'src/dto/trips/trip.interface';
+import { TRIP_REPOSITORY } from 'src/constats';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class TripsService {
-  private readonly trips: Trip[] = [];
+  constructor(
+    @Inject(TRIP_REPOSITORY)
+    private tripRepository: Repository<Trip>,
+  ) {}
 
-  get() {
-    return this.trips;
+  async findAll(): Promise<Trip[]> {
+    return this.tripRepository.find();
   }
 
-  create(trip: Trip) {
-    this.trips.push(trip);
-    return trip;
+  findOne(id: string): Promise<Trip> {
+    return this.tripRepository.findOne(id);
+  }
+
+  async createTrip(trip: TripInterface): Promise<InsertResult> {
+    return this.tripRepository.insert(trip);
   }
 }
