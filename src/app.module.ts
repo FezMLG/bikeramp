@@ -5,8 +5,17 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Trip } from './trips/trips.entity';
 import { Connection } from 'typeorm';
+import { DatabaseConfig } from './database/database.config';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), TripsModule, StatsModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      expandVariables: true,
+      load: [DatabaseConfig],
+    }),
+    TripsModule,
+    StatsModule,
+  ],
 })
 export class AppModule {}
