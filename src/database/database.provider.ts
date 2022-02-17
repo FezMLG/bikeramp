@@ -1,12 +1,5 @@
 import { createConnection } from 'typeorm';
-import {
-  DATABASE_CONNECTION,
-  DB_HOST,
-  DB_NAME,
-  DB_PASS,
-  DB_PORT,
-  DB_USER,
-} from 'src/constats';
+import { DATABASE_CONNECTION } from 'src/constats';
 import { ConfigService } from '@nestjs/config';
 import { Trip } from 'src/trips/trips.entity';
 
