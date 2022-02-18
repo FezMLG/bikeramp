@@ -18,6 +18,6 @@ export class Trip {
   @Column({ type: 'float' })
   price: number;
 
-  @Column({ type: 'integer', default: 0 })
+  @Column({ type: 'integer' })
   distance: number;
 }

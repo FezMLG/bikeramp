@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { TRIP_REPOSITORY } from 'src/constats';
-import { Trip } from 'src/trips/trip.entity';
-import { getDayFromDate, getDayFromNum } from 'src/utils';
+import { TRIP_REPOSITORY } from '../constats';
+import { Trip } from '../database/trip.entity';
+import { getDayFromDate, getDayFromNum } from '../utils';
 import { Repository } from 'typeorm';
 
 @Injectable()

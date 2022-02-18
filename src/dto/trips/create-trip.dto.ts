@@ -5,4 +5,5 @@ export class CreateTripDto {
   @IsString() readonly destination_address: string;
   @IsNumber() readonly price: number;
   @IsString() readonly date: string;
+  @IsNumber() readonly distance: number;
 }

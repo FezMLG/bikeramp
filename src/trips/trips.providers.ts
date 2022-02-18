@@ -1,7 +1,7 @@
 import { Provider } from '@nestjs/common';
-import { DATABASE_CONNECTION, TRIP_REPOSITORY } from 'src/constats';
+import { DATABASE_CONNECTION, TRIP_REPOSITORY } from '../constats';
 import { Connection } from 'typeorm';
-import { Trip } from './trip.entity';
+import { Trip } from '../database/trip.entity';
 
 export const tripsProviders: Provider[] = [
   {

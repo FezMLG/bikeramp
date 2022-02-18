@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { Trip } from './trip.entity';
-import { BICYCLING, GOOGLE_MAPS_API_KEY, TRIP_REPOSITORY } from 'src/constats';
+import { Trip } from '../database/trip.entity';
+import { BICYCLING, GOOGLE_MAPS_API_KEY, TRIP_REPOSITORY } from '../constats';
 import { ConfigService } from '@nestjs/config';
-import { CreateTripDto } from 'src/dto/trips/create-trip.dto';
+import { CreateTripDto } from '../dto/trips/create-trip.dto';
 import axios from 'axios';
 
 @Injectable()

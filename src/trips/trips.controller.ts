@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { CreateTripDto } from 'src/dto/trips/create-trip.dto';
+import { CreateTripDto } from '../dto/trips/create-trip.dto';
 import { TripsService } from './trips.service';
-import { TripInterface } from 'src/dto/trips/trip.interface';
+import { TripInterface } from '../dto/trips/trip.interface';
 
 @Controller('trips')
 export class TripsController {
