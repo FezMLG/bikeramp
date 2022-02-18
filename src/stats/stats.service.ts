@@ -1,10 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { format } from 'date-fns';
-import { stringify } from 'flatted';
 import { TRIP_REPOSITORY } from 'src/constats';
 import { Trip } from 'src/trips/trip.entity';
-import { Between, Repository } from 'typeorm';
-import { DailyStats, WeeklyStats } from './stats.interfaces';
+import { getDayFromDate, getDayFromNum } from 'src/utils';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class StatsService {
@@ -14,28 +12,41 @@ export class StatsService {
   ) {}
 
   async getWeeklyStats() {
-    let curr = new Date(); // get current date
-    let first = curr.getDate() - curr.getDay() + 1; // First day is the day of the month - the day of the week
-    let last = first + 6; // last day is the first day + 6
+    let date = new Date();
+    let firstDay = date.getDate() - date.getDay() + 1;
+    let lastDay = firstDay + 6;
 
-    let firstday = format(new Date(curr.setDate(first)), 'yyyy-MM-dd');
-    let lastday = format(new Date(curr.setDate(last)), 'yyyy-MM-dd');
-
-    // const weeklyStats = await this.tripRepository.find({
-    //   select: ['distance', 'price'],
-    //   where: { date: Between(firstday, lastday) },
-    // });
     const weeklyStats = await this.tripRepository
       .createQueryBuilder()
       .select('SUM(price)', 'total_price')
       .addSelect('SUM(distance)', 'total_distance')
-      .where(`date BETWEEN '${firstday}' AND '${lastday}'`)
+      .where(
+        `date BETWEEN '${getDayFromNum(firstDay)}' AND '${getDayFromNum(
+          lastDay,
+        )}'`,
+      )
       .getRawOne();
-    console.log(weeklyStats);
     return weeklyStats;
   }
 
-  getMonthlyStats() {
-    return { monthlyStats: {} };
+  async getMonthlyStats() {
+    var date = new Date();
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+    const monthlyStats = await this.tripRepository
+      .createQueryBuilder()
+      .select(`to_char(date, 'FMMonth, DDth')`, 'date')
+      .addSelect(`SUM(distance)||'km'`, 'total_distance')
+      .addSelect(`AVG(distance)||'km'`, 'avg_ride')
+      .addSelect(`AVG(price)||'PLN'`, 'avg_price')
+      .where(
+        `date BETWEEN '${getDayFromDate(firstDay)}' AND '${getDayFromDate(
+          lastDay,
+        )}'`,
+      )
+      .groupBy('date')
+      .getRawMany();
+    return monthlyStats;
   }
 }
