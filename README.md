@@ -8,7 +8,7 @@ This endpoint logs the trip and automatically calculates the distance between st
 
 `POST http://example.com/api/trips`
 
-[Query Parameters](https://www.notion.so/df486f89e08b4452b9ab1f3861f850d0)
+[Query Parameters](https://elpassion.notion.site/df486f89e08b4452b9ab1f3861f850d0)
 
 # Stats
 
@@ -57,3 +57,13 @@ This endpoint retrieves how many kilometers did the courier ride during current 
 This endpoint retrieves a summary of ride distances from current month, grouped by day. The
 summary should include sum of all rides distances from given day, average
 ride distance and average price for the ride.
+
+## Running API
+
+You must have a PostgreSQL database to access the API. You can use the one provided in the `docker-compose.yml` file. Be sure to create and fill in the `.env` and `docker.env` files based on the example files `(*.sample)`.
+
+To run containers use:
+
+```
+docker-compose up -d
+```
