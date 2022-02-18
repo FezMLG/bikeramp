@@ -1,10 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { InsertResult, Repository } from 'typeorm';
-import { Trip } from './trips.entity';
+import { Trip } from './trip.entity';
 import { TripInterface } from 'src/dto/trips/trip.interface';
 import { TRIP_REPOSITORY } from 'src/constats';
-import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class TripsService {

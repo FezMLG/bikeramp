@@ -12,7 +12,7 @@ export class Trip {
   @Column({ type: 'text' })
   destination_address: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'date' })
   date: string;
 
   @Column({ type: 'float' })
