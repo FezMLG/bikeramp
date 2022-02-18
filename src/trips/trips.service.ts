@@ -23,7 +23,11 @@ export class TripsService {
   }
 
   async createTrip(createTripDto: CreateTripDto): Promise<any> {
-    const { start_address, destination_address } = createTripDto;
+    const { start_address, destination_address, price } = createTripDto;
+
+    if (price < 0) {
+      return { message: 'Route not found' };
+    }
 
     // Distance is calculated in meters
     const { data } = await axios.get(
@@ -39,6 +43,5 @@ export class TripsService {
       ...createTripDto,
       distance,
     });
-    return data;
   }
 }
