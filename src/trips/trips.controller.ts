@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  ValidationPipe,
-  UsePipes,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CreateTripDto } from 'src/dto/trips/create-trip.dto';
 import { TripsService } from './trips.service';
 import { TripInterface } from 'src/dto/trips/trip.interface';
