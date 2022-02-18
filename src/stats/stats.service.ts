@@ -18,8 +18,8 @@ export class StatsService {
 
     const weeklyStats = await this.tripRepository
       .createQueryBuilder()
-      .select('SUM(price)', 'total_price')
-      .addSelect('SUM(distance)', 'total_distance')
+      .select(`SUM(distance)/100||'km'`, `total_distance`)
+      .addSelect(`SUM(price)||'PLN'`, `total_price`)
       .where(
         `date BETWEEN '${getDayFromNum(firstDay)}' AND '${getDayFromNum(
           lastDay,
@@ -38,7 +38,7 @@ export class StatsService {
       .createQueryBuilder()
       .select(`to_char(date, 'FMMonth, DDth')`, 'date')
       .addSelect(`SUM(distance)||'km'`, 'total_distance')
-      .addSelect(`AVG(distance)||'km'`, 'avg_ride')
+      .addSelect(`AVG(distance)/100||'km'`, 'avg_ride')
       .addSelect(`AVG(price)||'PLN'`, 'avg_price')
       .where(
         `date BETWEEN '${getDayFromDate(firstDay)}' AND '${getDayFromDate(
