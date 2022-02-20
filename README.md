@@ -67,3 +67,11 @@ To run containers use:
 ```
 docker-compose up -d
 ```
+
+## Interactive Docs
+
+To try interactive documentation go to:
+
+```
+{your_ip_address}:{your_port}/api
+```

@@ -15,6 +15,16 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(3000);
+  const config = new DocumentBuilder()
+    .setTitle('Bikeramp API')
+    .setDescription('The Bikeramp API description')
+    .setVersion('1.0')
+    .addTag('trips')
+    .addTag('stats')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+
+  await app.listen(process.env.PORT);
 }
 bootstrap();

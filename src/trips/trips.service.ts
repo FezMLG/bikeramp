@@ -1,4 +1,5 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Scope } from '@nestjs/common';
+import { Request } from 'express';
 import { Repository } from 'typeorm';
 import { Trip } from '../database/trip.entity';
 import { BICYCLING, GOOGLE_MAPS_API_KEY, TRIP_REPOSITORY } from '../constats';
@@ -6,7 +7,7 @@ import { ConfigService } from '@nestjs/config';
 import { CreateTripDto } from '../dto/trips/create-trip.dto';
 import axios from 'axios';
 
-@Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class TripsService {
   constructor(
     @Inject(TRIP_REPOSITORY)
