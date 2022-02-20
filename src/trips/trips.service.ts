@@ -1,7 +1,7 @@
 import { Inject, Injectable, Scope } from '@nestjs/common';
 import { Request } from 'express';
 import { Repository } from 'typeorm';
-import { Trip } from '../database/trip.entity';
+import { Trip } from '../database/schema/trip.entity';
 import { BICYCLING, GOOGLE_MAPS_API_KEY, TRIP_REPOSITORY } from '../constats';
 import { ConfigService } from '@nestjs/config';
 import { CreateTripDto } from '../dto/trips/create-trip.dto';
@@ -18,11 +18,6 @@ export class TripsService {
   // for debbuging
   async findAll(): Promise<Trip[]> {
     return this.tripRepository.find();
-  }
-
-  // for debbuging
-  async findOne(id: string): Promise<Trip> {
-    return this.tripRepository.findOne(id);
   }
 
   async createTrip(createTripDto: CreateTripDto): Promise<any> {

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { TRIP_REPOSITORY } from '../constats';
-import { Trip } from '../database/trip.entity';
+import { Trip } from '../database/schema/trip.entity';
 import { getDayFromDate, getDayFromNum } from '../utils';
 import { Repository } from 'typeorm';
 import { MonthlyStats } from './interfaces/monthlystats.interface';

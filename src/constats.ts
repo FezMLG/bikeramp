@@ -14,3 +14,6 @@ export const AVGDISTANCE = 'avgdistance';
 export const AVGPRICE = 'avgprice';
 export const DATE = 'date';
 export const GOOGLE_MAPS_API_KEY = 'GOOGLE_MAPS_API_KEY';
+
+export const SUCC_ADD_TRIP = 'Successfully added trip.';
+export const FAIL_ADD_TRIP = 'Failed to add trip.';

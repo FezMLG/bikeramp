@@ -1,7 +1,7 @@
 import { createConnection } from 'typeorm';
 import { DATABASE_CONNECTION } from '../constats';
 import { ConfigService } from '@nestjs/config';
-import { Trip } from './trip.entity';
+import { Trip } from './schema/trip.entity';
 
 // configuration for database connection
 export const databaseProvider = [
