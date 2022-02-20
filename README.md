@@ -68,6 +68,10 @@ To run containers use:
 docker-compose up -d
 ```
 
+## Google Maps Api Key
+
+To obtain Google maps api key i will recommend you this docs from google: [Google Maps API Set Up](https://developers.google.com/maps/documentation/javascript/cloud-setup)
+
 ## Interactive Docs
 
 To try interactive documentation go to:

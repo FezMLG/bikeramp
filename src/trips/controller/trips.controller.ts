@@ -7,8 +7,8 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { CreateTripDto } from '../dto/trips/create-trip.dto';
-import { TripsService } from './trips.service';
+import { CreateTripDto } from '../../dto/trips/create-trip.dto';
+import { TripsService } from '../service/trips.service';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { FAIL_ADD_TRIP, FAIL_ROAD, SUCC_ADD_TRIP } from 'src/constats';

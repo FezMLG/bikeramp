@@ -1,14 +1,14 @@
 import { Inject, Injectable, Scope } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { Trip } from '../database/schema/trip.entity';
+import { Trip } from '../../database/schema/trip.entity';
 import {
   BICYCLING,
   FAIL_ROAD,
   GOOGLE_MAPS_API_KEY,
   TRIP_REPOSITORY,
-} from '../constats';
+} from '../../constats';
 import { ConfigService } from '@nestjs/config';
-import { CreateTripDto } from '../dto/trips/create-trip.dto';
+import { CreateTripDto } from '../../dto/trips/create-trip.dto';
 import axios from 'axios';
 
 @Injectable({ scope: Scope.REQUEST })
