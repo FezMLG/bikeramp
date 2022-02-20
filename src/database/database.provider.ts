@@ -3,6 +3,7 @@ import { DATABASE_CONNECTION } from '../constats';
 import { ConfigService } from '@nestjs/config';
 import { Trip } from './trip.entity';
 
+// configuration for database connection
 export const databaseProvider = [
   {
     provide: DATABASE_CONNECTION,

@@ -1,6 +1,7 @@
 import { UUIDVersion } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+// database schema
 @Entity()
 export class Trip {
   @PrimaryGeneratedColumn('uuid')
