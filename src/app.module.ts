@@ -3,15 +3,14 @@ import { TripsModule } from './trips/trips.module';
 import { StatsModule } from './stats/stats.module';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseConfig } from './database/database.config';
-import { envValidation } from './env.validation';
-import * as Joi from 'joi';
+import { validationSchema } from './env.validation';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       expandVariables: true,
-      ...envValidation,
+      validationSchema,
       load: [DatabaseConfig],
     }),
     TripsModule,

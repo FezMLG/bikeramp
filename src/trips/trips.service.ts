@@ -14,20 +14,18 @@ export class TripsService {
     private configService: ConfigService,
   ) {}
 
+  // for debbuging
   async findAll(): Promise<Trip[]> {
     return this.tripRepository.find();
   }
 
-  findOne(id: string): Promise<Trip> {
+  // for debbuging
+  async findOne(id: string): Promise<Trip> {
     return this.tripRepository.findOne(id);
   }
 
   async createTrip(createTripDto: CreateTripDto): Promise<any> {
     const { start_address, destination_address, price } = createTripDto;
-
-    if (price < 0) {
-      return { message: 'Route not found' };
-    }
 
     // Distance is calculated in meters
     const { data } = await axios.get(

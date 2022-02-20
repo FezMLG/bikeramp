@@ -5,5 +5,4 @@ export class CreateTripDto {
   @IsString() readonly destination_address: string;
   @IsPositive() readonly price: number;
   @IsString() readonly date: string;
-  @IsPositive() readonly distance: number;
 }
