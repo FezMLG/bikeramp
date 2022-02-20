@@ -3,6 +3,8 @@ import { TRIP_REPOSITORY } from '../constats';
 import { Trip } from '../database/trip.entity';
 import { getDayFromDate, getDayFromNum } from '../utils';
 import { Repository } from 'typeorm';
+import { MonthlyStats } from './interfaces/monthlystats.interface';
+import { WeeklyStats } from './interfaces/weeklystats.interface';
 
 @Injectable()
 export class StatsService {
@@ -11,7 +13,7 @@ export class StatsService {
     private tripRepository: Repository<Trip>,
   ) {}
 
-  async getWeeklyStats() {
+  async getWeeklyStats(): Promise<WeeklyStats> {
     let date = new Date();
     let firstDay = date.getDate() - date.getDay() + 1;
     let lastDay = firstDay + 6;
@@ -29,7 +31,7 @@ export class StatsService {
     return weeklyStats;
   }
 
-  async getMonthlyStats() {
+  async getMonthlyStats(): Promise<MonthlyStats[]> {
     var date = new Date();
     var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
     var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
