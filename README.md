@@ -97,7 +97,3 @@ To try interactive documentation go to:
 {your_ip_address}:{your_port}/api
 
 ```
-
-```
-
-```
