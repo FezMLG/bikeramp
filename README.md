@@ -65,7 +65,23 @@ You must have a PostgreSQL database to access the API. You can use the one provi
 To run containers use:
 
 ```
-docker-compose up -d
+$ docker-compose up -d
+```
+
+To run API in production mode use:
+
+```
+$ npm run build
+```
+
+```
+$ npm run start:prod
+```
+
+To run API in development mode use:
+
+```
+$ npm run start:dev
 ```
 
 ## Google Maps Api Key
@@ -77,5 +93,11 @@ To obtain Google maps api key i will recommend you this docs from google: [Googl
 To try interactive documentation go to:
 
 ```
+
 {your_ip_address}:{your_port}/api
+
+```
+
+```
+
 ```
