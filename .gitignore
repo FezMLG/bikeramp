@@ -81,6 +81,8 @@ web_modules/
 .env.production.local
 .env.local
 
+ormconfig.ts
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache
@@ -157,7 +159,3 @@ dist
 # Ignore all local history of files
 .history
 .ionide
-
-# Support for Project snippet scope
-
-# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,node
