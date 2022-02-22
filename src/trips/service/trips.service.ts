@@ -1,6 +1,6 @@
 import { Inject, Injectable, Scope } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { Trip } from '../../database/schema/trip.entity';
+import { Trip } from '../../schema/trip.entity';
 import {
   BICYCLING,
   FAIL_ROAD,
@@ -10,11 +10,12 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { CreateTripDto } from '../../dto/trips/create-trip.dto';
 import axios from 'axios';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable({ scope: Scope.REQUEST })
 export class TripsService {
   constructor(
-    @Inject(TRIP_REPOSITORY)
+    @InjectRepository(Trip)
     private tripRepository: Repository<Trip>,
     private configService: ConfigService,
   ) {}

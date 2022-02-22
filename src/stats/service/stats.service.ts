@@ -1,15 +1,16 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { TRIP_REPOSITORY } from '../../constats';
-import { Trip } from '../../database/schema/trip.entity';
+import { Trip } from '../../schema/trip.entity';
 import { getDayFromDate, getDayFromNum } from '../../utils';
 import { Repository } from 'typeorm';
 import { MonthlyStats } from '../interfaces/monthlystats.interface';
 import { WeeklyStats } from '../interfaces/weeklystats.interface';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class StatsService {
   constructor(
-    @Inject(TRIP_REPOSITORY)
+    @InjectRepository(Trip)
     private tripRepository: Repository<Trip>,
   ) {}
 
