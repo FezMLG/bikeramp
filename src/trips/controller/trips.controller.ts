@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  HttpException,
+  HttpStatus,
   Post,
   Res,
   UsePipes,
@@ -29,18 +31,19 @@ export class TripsController {
   @UsePipes(new ValidationPipe())
   @ApiResponse({ status: 201, description: SUCC_ADD_TRIP })
   @ApiResponse({ status: 400, description: FAIL_ADD_TRIP })
-  async createTrip(
-    @Body() createTripDto: CreateTripDto,
-    @Res() response: Response,
-  ) {
-    const res = await this.tripsService.createTrip(createTripDto);
-    if (res.message == FAIL_ROAD) {
-      return response.status(400).send(res);
-    }
-    if (!res.raw[0].id) {
-      return response.status(400).send({ message: FAIL_ADD_TRIP });
+  async createTrip(@Body() createTripDto: CreateTripDto) {
+    let res = await this.tripsService.createTrip(createTripDto);
+    if (res.raw[0].id) {
+      res = {
+        statusCode: 201,
+        message: SUCC_ADD_TRIP,
+      };
+      return res;
     } else {
-      return response.status(201).send({ message: SUCC_ADD_TRIP });
+      throw new HttpException(
+        'Internal Server Error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 }

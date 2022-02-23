@@ -8,14 +8,25 @@ describe('TripsController', () => {
   let controller: TripsController;
 
   const mockTripsService = {
-    createTrip: jest.fn((dto) => {
+    createTrip: jest.fn(() => {
       return {
-        id: Date.now(),
-        ...dto,
+        identifiers: [{ id: 'e6b21841-62e8-4d9e-a848-cd344f6dc2d8' }],
+        generatedMaps: [{ id: 'e6b21841-62e8-4d9e-a848-cd344f6dc2d8' }],
+        raw: [{ id: 'e6b21841-62e8-4d9e-a848-cd344f6dc2d8' }],
       };
     }),
   };
-  const req = httpMocks.createRequest();
+  const req = httpMocks.createRequest({
+    method: 'POST',
+    url: '/api/trips',
+    params: {
+      start_address: 'Lipków 05-080',
+      destination_address: 'Warszawa',
+      price: 68,
+      date: '2022-02-16',
+    },
+  });
+
   req.res = httpMocks.createResponse();
 
   beforeEach(async () => {
@@ -34,18 +45,16 @@ describe('TripsController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should create a trip', () => {
+  it('should create a trip', async () => {
     expect(
-      controller.createTrip(
-        {
-          start_address: 'Lipków 05-080',
-          destination_address: 'Warszawa',
-          price: 68,
-          date: '2022-02-16',
-        },
-        req.res,
-      ),
-    ).toBe({
+      await controller.createTrip({
+        start_address: 'Lipków 05-080',
+        destination_address: 'Warszawa',
+        price: 68,
+        date: '2022-02-16',
+      }),
+    ).toEqual({
+      statusCode: 201,
       message: SUCC_ADD_TRIP,
     });
   });

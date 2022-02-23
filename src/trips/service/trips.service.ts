@@ -1,4 +1,10 @@
-import { Inject, Injectable, Scope } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+  Scope,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Trip } from '../../schema/trip.entity';
 import {
@@ -39,7 +45,7 @@ export class TripsService {
       )}`,
     );
     if (data.rows[0].elements[0].status != 'OK') {
-      return { message: FAIL_ROAD };
+      throw new HttpException(FAIL_ROAD, HttpStatus.BAD_REQUEST);
     }
     const distance = data.rows[0].elements[0].distance.value;
     return await this.tripRepository.insert({
