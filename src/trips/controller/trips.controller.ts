@@ -11,7 +11,7 @@ import { CreateTripDto } from '../../dto/trips/create-trip.dto';
 import { TripsService } from '../service/trips.service';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import { FAIL_ADD_TRIP, FAIL_ROAD, SUCC_ADD_TRIP } from 'src/constats';
+import { FAIL_ADD_TRIP, FAIL_ROAD, SUCC_ADD_TRIP } from '../../constats';
 import { TripInterface } from 'src/dto/trips/trip.interface';
 
 @ApiTags('trips')
@@ -37,7 +37,6 @@ export class TripsController {
     if (res.message == FAIL_ROAD) {
       return response.status(400).send(res);
     }
-
     if (!res.raw[0].id) {
       return response.status(400).send({ message: FAIL_ADD_TRIP });
     } else {

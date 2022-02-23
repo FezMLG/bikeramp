@@ -12,5 +12,4 @@ export const GOOGLE_MAPS_API_KEY = 'GOOGLE_MAPS_API_KEY';
 
 export const SUCC_ADD_TRIP = 'Successfully added trip.';
 export const FAIL_ADD_TRIP = 'Failed to add trip.';
-
 export const FAIL_ROAD = 'Route not found';
