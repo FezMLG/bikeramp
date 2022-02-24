@@ -5,12 +5,28 @@ describe('StatsService', () => {
   let service: StatsService;
 
   const mockTripsRepository = {
-    getWeeklyStats: jest.fn(() => {
-      return {
+    getWeeklyStats: jest.fn(() =>
+      Promise.resolve({
         total_distance: '0km',
         total_price: '0PLN',
-      };
-    }),
+      }),
+    ),
+    getMonthlyStats: jest.fn(() =>
+      Promise.resolve([
+        {
+          date: 'February, 16th',
+          total_distance: '3521km',
+          avg_ride: '97.82km',
+          avg_price: '60.46PLN',
+        },
+        {
+          date: 'February, 17th',
+          total_distance: '0km',
+          avg_ride: '0.00km',
+          avg_price: '68.00PLN',
+        },
+      ]),
+    ),
   };
 
   beforeEach(async () => {
@@ -38,19 +54,19 @@ describe('StatsService', () => {
     });
   });
 
-  // it('should return an array of monthly stats objects', async () => {
-  //   const kmRegex = /([0-9]+)(km)/gm;
-  //   const PLNRegex = /([0-9]+)(PLN)/gm;
+  it('should return an array of monthly stats objects', async () => {
+    const kmRegex = /([0-9]+)(km)/gm;
+    const PLNRegex = /([0-9]+)(PLN)/gm;
 
-  //   expect(await service.getMonthlyStats()).toEqual(
-  //     expect.arrayContaining([
-  //       expect.objectContaining({
-  //         date: expect.any(String),
-  //         total_distance: expect.stringMatching(kmRegex),
-  //         avg_ride: expect.stringMatching(kmRegex),
-  //         avg_price: expect.stringMatching(PLNRegex),
-  //       }),
-  //     ]),
-  //   );
-  // });
+    expect(await service.getMonthlyStats()).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          date: expect.any(String),
+          total_distance: expect.stringMatching(kmRegex),
+          avg_ride: expect.stringMatching(kmRegex),
+          avg_price: expect.stringMatching(PLNRegex),
+        }),
+      ]),
+    );
+  });
 });
