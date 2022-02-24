@@ -14,7 +14,6 @@ describe('StatsController (e2e)', () => {
 
   const mockConfigService = {
     get: jest.fn((key: string) => {
-      // this is being super extra, in the case that you need multiple keys with the `get` method
       if (key === 'GOOGLE_MAPS_API_KEY') {
         return process.env.GOOGLE_MAPS_API_KEY;
       }
