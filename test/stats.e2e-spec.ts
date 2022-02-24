@@ -1,12 +1,9 @@
 import * as request from 'supertest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { StatsModule } from '../src/stats/stats.module';
-import { StatsService } from '../src/stats/service/stats.service';
 import { INestApplication } from '@nestjs/common';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Trip } from '../src/schema/trip.entity';
-import { TripsService } from '../src/trips/service/trips.service';
-import { response } from 'express';
 
 describe('StatsController (e2e)', () => {
   let app: INestApplication;
