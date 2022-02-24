@@ -35,23 +35,26 @@ export class TripsService {
     const { start_address, destination_address } = createTripDto;
 
     // Distance is calculated in meters
-    const { data } = await axios.get(
-      `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${encodeURI(
-        start_address,
-      )}&destinations=${encodeURI(
-        destination_address,
-      )}&mode=${BICYCLING}&key=${encodeURI(
-        this.configService.get(GOOGLE_MAPS_API_KEY),
-      )}`,
-    );
-    return data;
-    if (data.rows[0].elements[0].status != 'OK') {
-      throw new HttpException(FAIL_ROAD, HttpStatus.BAD_REQUEST);
+    try {
+      const googleApi = await axios.get(
+        `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${encodeURI(
+          start_address,
+        )}&destinations=${encodeURI(
+          destination_address,
+        )}&mode=${BICYCLING}&key=${encodeURI(
+          this.configService.get(GOOGLE_MAPS_API_KEY),
+        )}`,
+      );
+      if (googleApi.data.rows[0].elements[0].status != 'OK') {
+        throw new HttpException(FAIL_ROAD, HttpStatus.BAD_REQUEST);
+      }
+      const distance = googleApi.data.rows[0].elements[0].distance.value;
+      return await this.tripRepository.save({
+        ...createTripDto,
+        distance,
+      });
+    } catch {
+      throw new HttpException('Internal Server Error', HttpStatus.BAD_REQUEST);
     }
-    const distance = data.rows[0].elements[0].distance.value;
-    return await this.tripRepository.save({
-      ...createTripDto,
-      distance,
-    });
   }
 }
