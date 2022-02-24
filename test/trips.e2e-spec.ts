@@ -6,11 +6,21 @@ import { Trip } from '../src/schema/trip.entity';
 import { SUCC_ADD_TRIP } from '../src/constats';
 import { TripsModule } from '../src/trips/trips.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import 'dotenv/config';
 
 describe('StatsController (e2e)', () => {
   let app: INestApplication;
+  let config: ConfigService;
+
   const mockConfigService = {
-    get: jest.fn(),
+    get: jest.fn((key: string) => {
+      // this is being super extra, in the case that you need multiple keys with the `get` method
+      if (key === 'GOOGLE_MAPS_API_KEY') {
+        // return 'AIzaSyDfbs7MKD5rQ0za1R0rSDATKEALJs8y-Co';
+        return process.env.GOOGLE_MAPS_API_KEY;
+      }
+      return null;
+    }),
   };
   const mockTripsRepository = {
     createTrip: jest.fn(() => {
@@ -34,6 +44,7 @@ describe('StatsController (e2e)', () => {
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [TripsModule, ConfigModule],
+      providers: [ConfigService],
     })
       .overrideProvider(getRepositoryToken(Trip))
       .useValue(mockTripsRepository)
@@ -42,11 +53,11 @@ describe('StatsController (e2e)', () => {
       .compile();
 
     app = moduleFixture.createNestApplication();
+    config = moduleFixture.get<ConfigService>(ConfigService);
     await app.init();
   });
 
   it(`/api/trips (POST)`, () => {
-    console.log(mockConfigService);
     return request(app.getHttpServer())
       .post('/trips')
       .send({
