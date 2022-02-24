@@ -8,12 +8,6 @@ import { Trip } from '../src/schema/trip.entity';
 describe('StatsController (e2e)', () => {
   let app: INestApplication;
   const mockTripsRepository = {
-    getWeeklyStats: jest.fn(() =>
-      Promise.resolve({
-        total_distance: '0km',
-        total_price: '0PLN',
-      }),
-    ),
     createQueryBuilder: jest.fn(() => ({
       select: jest.fn().mockReturnThis(),
       addSelect: jest.fn().mockReturnThis(),
