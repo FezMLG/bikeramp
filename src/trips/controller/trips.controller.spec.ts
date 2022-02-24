@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { SUCC_ADD_TRIP } from '../../constats';
 import { TripsService } from '../service/trips.service';
 import { TripsController } from './trips.controller';
-var httpMocks = require('node-mocks-http');
 
 describe('TripsController', () => {
   let controller: TripsController;
@@ -10,24 +9,15 @@ describe('TripsController', () => {
   const mockTripsService = {
     createTrip: jest.fn(() => {
       return {
-        identifiers: [{ id: 'e6b21841-62e8-4d9e-a848-cd344f6dc2d8' }],
-        generatedMaps: [{ id: 'e6b21841-62e8-4d9e-a848-cd344f6dc2d8' }],
-        raw: [{ id: 'e6b21841-62e8-4d9e-a848-cd344f6dc2d8' }],
+        start_address: 'Lipków 05-080',
+        destination_address: 'Warsaw',
+        price: 68,
+        date: '2022-02-16',
+        distance: 19277,
+        id: '9172da69-a219-4810-b5fa-ac618ba7538f',
       };
     }),
   };
-  const req = httpMocks.createRequest({
-    method: 'POST',
-    url: '/api/trips',
-    params: {
-      start_address: 'Lipków 05-080',
-      destination_address: 'Warszawa',
-      price: 68,
-      date: '2022-02-16',
-    },
-  });
-
-  req.res = httpMocks.createResponse();
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -46,14 +36,13 @@ describe('TripsController', () => {
   });
 
   it('should create a trip', async () => {
-    expect(
-      await controller.createTrip({
-        start_address: 'Lipków 05-080',
-        destination_address: 'Warszawa',
-        price: 68,
-        date: '2022-02-16',
-      }),
-    ).toEqual({
+    const trip = {
+      start_address: 'Lipków 05-080',
+      destination_address: 'Warsaw',
+      price: 68,
+      date: '2022-02-16',
+    };
+    expect(await controller.createTrip(trip)).toEqual({
       statusCode: 201,
       message: SUCC_ADD_TRIP,
     });
