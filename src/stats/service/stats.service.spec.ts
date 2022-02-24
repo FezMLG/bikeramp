@@ -4,10 +4,15 @@ import { StatsService } from './stats.service';
 describe('StatsService', () => {
   let service: StatsService;
 
+  const mockTripsRepository = {};
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [StatsService],
-    }).compile();
+    })
+      .overrideProvider(StatsService)
+      .useValue(mockTripsRepository)
+      .compile();
 
     service = module.get<StatsService>(StatsService);
   });
