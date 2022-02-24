@@ -1,4 +1,8 @@
-import { HealthCheckService, TypeOrmHealthIndicator } from '@nestjs/terminus';
+import {
+  HealthCheckService,
+  HttpHealthIndicator,
+  TypeOrmHealthIndicator,
+} from '@nestjs/terminus';
 import { Test, TestingModule } from '@nestjs/testing';
 import { StatsHealthIndicator } from '../stats/stats.health';
 import { HealthController } from './health.controller';
@@ -28,6 +32,9 @@ describe('HealthController', () => {
               },
             },
           },
+          'Google Maps API': {
+            status: 'up',
+          },
         },
         error: {},
         details: {
@@ -48,6 +55,9 @@ describe('HealthController', () => {
               },
             },
           },
+          'Google Maps API': {
+            status: 'up',
+          },
         },
       };
     }),
@@ -62,6 +72,7 @@ describe('HealthController', () => {
         HealthCheckService,
         TypeOrmHealthIndicator,
         StatsHealthIndicator,
+        HttpHealthIndicator,
       ],
     })
       .overrideProvider(HealthCheckService)
@@ -69,6 +80,8 @@ describe('HealthController', () => {
       .overrideProvider(TypeOrmHealthIndicator)
       .useValue(mockOtherProviders)
       .overrideProvider(StatsHealthIndicator)
+      .useValue(mockOtherProviders)
+      .overrideProvider(HttpHealthIndicator)
       .useValue(mockOtherProviders)
       .compile();
 

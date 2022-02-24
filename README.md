@@ -88,6 +88,11 @@ $ npm run start:dev
 
 To obtain Google maps api key i will recommend you this docs from google: [Google Maps API Set Up](https://developers.google.com/maps/documentation/javascript/cloud-setup)
 
+## Health endpoint
+
+Health API endpoint avaiable under `GET /api/health`
+Returns information about stats endpoint, database and google maps api.
+
 ## Interactive Docs
 
 To try interactive documentation go to:
