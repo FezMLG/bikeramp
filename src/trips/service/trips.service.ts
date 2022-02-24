@@ -1,18 +1,7 @@
-import {
-  HttpException,
-  HttpStatus,
-  Inject,
-  Injectable,
-  Scope,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Trip } from '../../schema/trip.entity';
-import {
-  BICYCLING,
-  FAIL_ROAD,
-  GOOGLE_MAPS_API_KEY,
-  TRIP_REPOSITORY,
-} from '../../constats';
+import { BICYCLING, FAIL_ROAD, GOOGLE_MAPS_API_KEY } from '../../constats';
 import { ConfigService } from '@nestjs/config';
 import { CreateTripDto } from '../../dto/trips/create-trip.dto';
 import axios from 'axios';

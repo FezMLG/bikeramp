@@ -5,8 +5,6 @@ import { ConfigModule } from '@nestjs/config';
 import { validationSchema } from './env.validation';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ormConfig } from './ormconfig';
-import { TerminusModule } from '@nestjs/terminus';
-import { HealthController } from './health/health.controller';
 import { HealthModule } from './health/health.module';
 
 @Module({

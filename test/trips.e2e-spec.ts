@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Trip } from '../src/schema/trip.entity';
-import { FAIL_ROAD, SUCC_ADD_TRIP } from '../src/constats';
+import { SUCC_ADD_TRIP } from '../src/constats';
 import { TripsModule } from '../src/trips/trips.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import 'dotenv/config';

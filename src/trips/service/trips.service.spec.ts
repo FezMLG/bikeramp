@@ -1,7 +1,4 @@
-import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { Trip } from '../../schema/trip.entity';
 import { TripsService } from './trips.service';
 
 describe('TripsService', () => {
