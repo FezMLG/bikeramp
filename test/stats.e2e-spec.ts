@@ -21,6 +21,7 @@ describe('StatsController (e2e)', () => {
       select: jest.fn().mockReturnThis(),
       addSelect: jest.fn().mockReturnThis(),
       where: jest.fn().mockReturnThis(),
+      groupBy: jest.fn().mockReturnThis(),
       getRawOne: jest.fn().mockReturnValueOnce({
         total_distance: '0km',
         total_price: '0PLN',
@@ -68,23 +69,23 @@ describe('StatsController (e2e)', () => {
       });
   });
 
-  // it(`/api/stats/monthly (GET)`, () => {
-  //   const kmRegex = /([0-9]+)(km)/gm;
-  //   const PLNRegex = /([0-9]+)(PLN)/gm;
-  //   return request(app.getHttpServer())
-  //     .get('/stats/monthly')
-  //     .expect(200)
-  //     .then((response) => {
-  //       expect(response.body).toEqual(
-  //         expect.arrayContaining([
-  //           expect.objectContaining({
-  //             date: expect.any(String),
-  //             total_distance: expect.stringMatching(kmRegex),
-  //             avg_ride: expect.stringMatching(kmRegex),
-  //             avg_price: expect.stringMatching(PLNRegex),
-  //           }),
-  //         ]),
-  //       );
-  //     });
-  // });
+  it(`/api/stats/monthly (GET)`, () => {
+    const kmRegex = /([0-9]+)(km)/gm;
+    const PLNRegex = /([0-9]+)(PLN)/gm;
+    return request(app.getHttpServer())
+      .get('/stats/monthly')
+      .expect(200)
+      .then((response) => {
+        expect(response.body).toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({
+              date: expect.any(String),
+              total_distance: expect.stringMatching(kmRegex),
+              avg_ride: expect.stringMatching(kmRegex),
+              avg_price: expect.stringMatching(PLNRegex),
+            }),
+          ]),
+        );
+      });
+  });
 });
