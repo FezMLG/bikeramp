@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Trip } from '../src/schema/trip.entity';
-import { SUCC_ADD_TRIP } from '../src/constats';
+import { FAIL_ROAD, SUCC_ADD_TRIP } from '../src/constats';
 import { TripsModule } from '../src/trips/trips.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import 'dotenv/config';
@@ -25,7 +25,7 @@ describe('StatsController (e2e)', () => {
   const mockTripsRepository = {
     createTrip: jest.fn(() => {
       return {
-        start_address: 'Lipków 05-080',
+        start_address: 'Grzybowska 62, 00-844 Warszawa',
         destination_address: 'Warsaw',
         price: 68,
         date: '2022-02-16',
@@ -61,7 +61,7 @@ describe('StatsController (e2e)', () => {
     return request(app.getHttpServer())
       .post('/trips')
       .send({
-        start_address: 'Lipków 05-080',
+        start_address: 'Grzybowska 62, 00-844 Warszawa',
         destination_address: 'Warsaw',
         price: 68,
         date: '2022-02-16',
@@ -81,8 +81,57 @@ describe('StatsController (e2e)', () => {
     return request(app.getHttpServer())
       .post('/trips')
       .send({
-        start_address: 'Lipków 05-080',
+        start_address: 'Grzybowska 62, 00-844 Warszawa',
         destination_address: 'Warsaw',
+        price: 68,
+        date: '2022-02-16',
+      })
+      .expect('Content-Type', /json/)
+      .expect(400);
+  });
+
+  it(`/api/trips (POST) --> 400 on wrong api key`, () => {
+    return request(app.getHttpServer())
+      .post('/trips')
+      .send({
+        start_address: 'Grzybowska 62, 00-844 Warszawa',
+        destination_address: 'Warsaw',
+        price: 68,
+        date: '2022-02-16',
+      })
+      .expect('Content-Type', /json/)
+      .expect(400);
+  });
+
+  it(`/api/trips (POST) --> 400 on validation error`, () => {
+    return request(app.getHttpServer())
+      .post('/trips')
+      .send({
+        start_address: 'Grzybowska 62, 00-844 Warszawa',
+        destination_address: 'Warsaw',
+        price: -68,
+        date: '2022-02-16',
+      })
+      .expect('Content-Type', /json/)
+      .expect(400);
+  });
+
+  it(`/api/trips (POST) --> 400 when missing parameters`, () => {
+    return request(app.getHttpServer())
+      .post('/trips')
+      .send({
+        start_address: 'Grzybowska 62, 00-844 Warszawa',
+      })
+      .expect('Content-Type', /json/)
+      .expect(400);
+  });
+
+  it(`/api/trips (POST) --> 400 when route is invalid`, () => {
+    return request(app.getHttpServer())
+      .post('/trips')
+      .send({
+        start_address: 'Grzybowska 62, 00-844 Warszawa',
+        destination_address: 'Quebec, Kanada',
         price: 68,
         date: '2022-02-16',
       })

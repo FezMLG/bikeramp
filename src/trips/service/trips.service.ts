@@ -54,7 +54,7 @@ export class TripsService {
         distance,
       });
     } catch {
-      throw new HttpException('Internal Server Error', HttpStatus.BAD_REQUEST);
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
     }
   }
 }
