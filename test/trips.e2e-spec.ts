@@ -16,7 +16,6 @@ describe('StatsController (e2e)', () => {
     get: jest.fn((key: string) => {
       // this is being super extra, in the case that you need multiple keys with the `get` method
       if (key === 'GOOGLE_MAPS_API_KEY') {
-        // return 'AIzaSyDfbs7MKD5rQ0za1R0rSDATKEALJs8y-Co';
         return process.env.GOOGLE_MAPS_API_KEY;
       }
       return null;
