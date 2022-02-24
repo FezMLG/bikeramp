@@ -6,7 +6,54 @@ import { HealthController } from './health.controller';
 describe('HealthController', () => {
   let controller: HealthController;
 
-  const mockHealth = {};
+  const mockHealth = {
+    check: jest.fn(() => {
+      return {
+        status: 'ok',
+        info: {
+          typeorm: {
+            status: 'up',
+          },
+          stats: {
+            status: 'up',
+            monthlyStats: {
+              status: true,
+              length: 4,
+            },
+            weeklyStats: {
+              status: true,
+              weeklyStats: {
+                total_distance: '0km',
+                total_price: '0PLN',
+              },
+            },
+          },
+        },
+        error: {},
+        details: {
+          typeorm: {
+            status: 'up',
+          },
+          stats: {
+            status: 'up',
+            monthlyStats: {
+              status: true,
+              length: 4,
+            },
+            weeklyStats: {
+              status: true,
+              weeklyStats: {
+                total_distance: '0km',
+                total_price: '0PLN',
+              },
+            },
+          },
+        },
+      };
+    }),
+  };
+
+  const mockOtherProviders = {};
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -20,9 +67,9 @@ describe('HealthController', () => {
       .overrideProvider(HealthCheckService)
       .useValue(mockHealth)
       .overrideProvider(TypeOrmHealthIndicator)
-      .useValue(mockHealth)
+      .useValue(mockOtherProviders)
       .overrideProvider(StatsHealthIndicator)
-      .useValue(mockHealth)
+      .useValue(mockOtherProviders)
       .compile();
 
     controller = module.get<HealthController>(HealthController);
@@ -30,5 +77,9 @@ describe('HealthController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
+  });
+
+  it('should return any health object', () => {
+    expect(controller.check()).toEqual(expect.any(Object));
   });
 });
