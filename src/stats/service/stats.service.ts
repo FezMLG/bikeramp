@@ -40,9 +40,15 @@ export class StatsService {
     const monthlyStats = await this.tripRepository
       .createQueryBuilder()
       .select(`to_char(date, 'FMMonth, DDth')`, 'date')
-      .addSelect(`COALESCE(SUM(distance), 0)||'km'`, 'total_distance')
-      .addSelect(`COALESCE(AVG(distance), 0)/100||'km'`, 'avg_ride')
-      .addSelect(`COALESCE(AVG(price), 0)||'PLN'`, 'avg_price')
+      .addSelect(`COALESCE(SUM(distance)/100, 0)||'km'`, 'total_distance')
+      .addSelect(
+        `ROUND((COALESCE(AVG(distance), 0)/100)::numeric, 2)||'km'`,
+        'avg_ride',
+      )
+      .addSelect(
+        `ROUND(COALESCE(AVG(price), 0)::numeric, 2)||'PLN'`,
+        'avg_price',
+      )
       .where(
         `date BETWEEN '${getDayFromDate(firstDay)}' AND '${getDayFromDate(
           lastDay,
