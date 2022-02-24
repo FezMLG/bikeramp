@@ -21,7 +21,7 @@ import { TripInterface } from 'src/dto/trips/trip.interface';
 export class TripsController {
   constructor(private readonly tripsService: TripsService) {}
 
-  // uncomment for debbuging
+  // only for debbuging
   @Get()
   async index(): Promise<TripInterface[]> {
     return this.tripsService.findAll();
@@ -33,7 +33,7 @@ export class TripsController {
   @ApiResponse({ status: 400, description: FAIL_ADD_TRIP })
   async createTrip(@Body() createTripDto: CreateTripDto) {
     let res = await this.tripsService.createTrip(createTripDto);
-    if (res.raw[0].id) {
+    if (res.id) {
       res = {
         statusCode: 201,
         message: SUCC_ADD_TRIP,

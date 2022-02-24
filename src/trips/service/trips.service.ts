@@ -32,7 +32,7 @@ export class TripsService {
   }
 
   async createTrip(createTripDto: CreateTripDto): Promise<any> {
-    const { start_address, destination_address, price } = createTripDto;
+    const { start_address, destination_address } = createTripDto;
 
     // Distance is calculated in meters
     const { data } = await axios.get(
@@ -48,7 +48,7 @@ export class TripsService {
       throw new HttpException(FAIL_ROAD, HttpStatus.BAD_REQUEST);
     }
     const distance = data.rows[0].elements[0].distance.value;
-    return await this.tripRepository.insert({
+    return await this.tripRepository.save({
       ...createTripDto,
       distance,
     });
