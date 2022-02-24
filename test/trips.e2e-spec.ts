@@ -75,4 +75,18 @@ describe('StatsController (e2e)', () => {
         });
       });
   });
+
+  it(`/api/trips (POST) --> 400 on wrong api key`, () => {
+    process.env.GOOGLE_MAPS_API_KEY = '';
+    return request(app.getHttpServer())
+      .post('/trips')
+      .send({
+        start_address: 'Lipków 05-080',
+        destination_address: 'Warsaw',
+        price: 68,
+        date: '2022-02-16',
+      })
+      .expect('Content-Type', /json/)
+      .expect(400);
+  });
 });
