@@ -18,7 +18,7 @@ import { CreateTripDto } from '../../dto/trips/create-trip.dto';
 import axios from 'axios';
 import { InjectRepository } from '@nestjs/typeorm';
 
-@Injectable({ scope: Scope.REQUEST })
+@Injectable()
 export class TripsService {
   constructor(
     @InjectRepository(Trip)
@@ -44,6 +44,7 @@ export class TripsService {
         this.configService.get(GOOGLE_MAPS_API_KEY),
       )}`,
     );
+    return data;
     if (data.rows[0].elements[0].status != 'OK') {
       throw new HttpException(FAIL_ROAD, HttpStatus.BAD_REQUEST);
     }

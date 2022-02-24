@@ -6,7 +6,6 @@ import { TripsService } from './trips.service';
 
 describe('TripsService', () => {
   let service: TripsService;
-
   const mockTripsRepository = {
     createTrip: jest.fn(() => {
       return {
