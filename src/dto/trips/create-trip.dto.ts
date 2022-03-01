@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsPositive, IsDateString } from 'class-validator';
+import { Transform, Type } from 'class-transformer';
+import {
+  IsString,
+  IsPositive,
+  IsDateString,
+  MaxDate,
+  IsDate,
+} from 'class-validator';
 
 export class CreateTripDto {
   @IsString()
@@ -24,10 +31,12 @@ export class CreateTripDto {
   })
   readonly price: number;
 
-  @IsDateString()
+  @IsDate()
+  @Type(() => Date)
+  @MaxDate(new Date())
   @ApiProperty({
     description: 'The date of the ride in ISO 8601 string',
     default: new Date(),
   })
-  readonly date: string;
+  readonly date: Date;
 }

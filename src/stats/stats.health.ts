@@ -14,7 +14,8 @@ export class StatsHealthIndicator extends HealthIndicator {
 
   async isHealthy(key: string): Promise<HealthIndicatorResult> {
     const monthlyStats = await this.statsService.getMonthlyStats();
-    const weeklyStats = await this.statsService.getWeeklyStats();
+    const units = 'km';
+    const weeklyStats = await this.statsService.getWeeklyStats(units);
     const isHealthyMonthly = monthlyStats.length > 0;
     const isHealthyWeekly =
       'total_distance' in weeklyStats && 'total_price' in weeklyStats;

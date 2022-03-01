@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { Units } from '../../utils';
 import { StatsService } from '../service/stats.service';
 import { StatsController } from './stats.controller';
 
@@ -50,7 +51,7 @@ describe('StatsController', () => {
     const kmRegex = /([0-9]+)(km)/gm;
     const PLNRegex = /([0-9]+)(PLN)/gm;
 
-    expect(await controller.getWeeklyStats()).toEqual({
+    expect(await controller.getWeeklyStats(Units.km)).toEqual({
       total_distance: expect.stringMatching(kmRegex),
       total_price: expect.stringMatching(PLNRegex),
     });

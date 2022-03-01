@@ -40,7 +40,7 @@ describe('TripsController', () => {
       start_address: 'Lipków 05-080',
       destination_address: 'Warsaw',
       price: 68,
-      date: '2022-02-16',
+      date: new Date('2022-02-16'),
     };
     expect(await controller.createTrip(trip)).toEqual({
       statusCode: 201,

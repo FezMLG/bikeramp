@@ -12,7 +12,7 @@ import { CreateTripDto } from '../../dto/trips/create-trip.dto';
 import { TripsService } from '../service/trips.service';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FAIL_ADD_TRIP, SUCC_ADD_TRIP } from '../../constats';
-import { TripInterface } from 'src/dto/trips/trip.interface';
+import { Trip } from '../../schema/trip.entity';
 
 @ApiTags('trips')
 @Controller('trips')
@@ -21,12 +21,12 @@ export class TripsController {
 
   // only for debbuging
   @Get()
-  async index(): Promise<TripInterface[]> {
+  async index(): Promise<Trip[]> {
     return this.tripsService.findAll();
   }
 
   @Post()
-  @UsePipes(new ValidationPipe())
+  // @UsePipes(new ValidationPipe())
   @ApiResponse({ status: 201, description: SUCC_ADD_TRIP })
   @ApiResponse({ status: 400, description: FAIL_ADD_TRIP })
   async createTrip(@Body() createTripDto: CreateTripDto) {

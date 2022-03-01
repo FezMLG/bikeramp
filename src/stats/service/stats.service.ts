@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Query } from '@nestjs/common';
 import { Trip } from '../../schema/trip.entity';
 import { getDayFromDate, getDayFromNum } from '../../utils';
 import { Repository } from 'typeorm';
@@ -13,14 +13,15 @@ export class StatsService {
     private tripRepository: Repository<Trip>,
   ) {}
 
-  async getWeeklyStats(): Promise<WeeklyStats> {
+  async getWeeklyStats(units: string): Promise<WeeklyStats> {
     let date = new Date();
     let firstDay = date.getDate() - date.getDay() + 1;
     let lastDay = firstDay + 6;
 
     const weeklyStats = await this.tripRepository
       .createQueryBuilder()
-      .select(`COALESCE(SUM(distance)/100, 0)||'km'`, `total_distance`)
+      // .select(`COALESCE(SUM(distance)/100, 0)||'km'`, `total_distance`)
+      .select(`COALESCE(SUM(distance), 0)`, `total_distance`)
       .addSelect(`COALESCE(SUM(price), 0)||'PLN'`, `total_price`)
       .where(
         `date BETWEEN '${getDayFromNum(firstDay)}' AND '${getDayFromNum(
@@ -28,7 +29,13 @@ export class StatsService {
         )}'`,
       )
       .getRawOne();
-    return weeklyStats;
+
+    let { total_distance, total_price } = weeklyStats;
+
+    return {
+      ...weeklyStats,
+      total_distance,
+    };
   }
 
   async getMonthlyStats(): Promise<MonthlyStats[]> {

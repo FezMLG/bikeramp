@@ -14,7 +14,7 @@ export class Trip {
   destination_address: string;
 
   @Column({ type: 'date' })
-  date: string;
+  date: Date;
 
   @Column({ type: 'float' })
   price: number;

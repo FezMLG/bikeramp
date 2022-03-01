@@ -38,12 +38,13 @@ export class TripsService {
         throw new HttpException(FAIL_ROAD, HttpStatus.BAD_REQUEST);
       }
       const distance = googleApi.data.rows[0].elements[0].distance.value;
+      // const distance = 0;
       return await this.tripRepository.save({
         ...createTripDto,
         distance,
       });
-    } catch {
-      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    } catch (error) {
+      throw new HttpException(error, HttpStatus.BAD_REQUEST);
     }
   }
 }

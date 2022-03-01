@@ -42,10 +42,16 @@ describe('TripsService', () => {
       start_address: 'Lipków 05-080',
       destination_address: 'Warsaw',
       price: 68,
+      date: new Date('2022-02-16'),
+    };
+    const ret_trip = {
+      start_address: 'Lipków 05-080',
+      destination_address: 'Warsaw',
+      price: 68,
       date: '2022-02-16',
     };
     expect(await service.createTrip(trip)).toEqual({
-      ...trip,
+      ...ret_trip,
       distance: expect.any(Number),
       id: expect.any(String),
     });

@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { StatsService } from '../service/stats.service';
 
@@ -8,8 +8,8 @@ export class StatsController {
   constructor(private readonly statsService: StatsService) {}
 
   @Get('weekly')
-  getWeeklyStats(): Object {
-    return this.statsService.getWeeklyStats();
+  getWeeklyStats(@Query('units') units: string): Object {
+    return this.statsService.getWeeklyStats(units);
   }
 
   @Get('monthly')
